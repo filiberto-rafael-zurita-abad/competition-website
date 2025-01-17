@@ -37,7 +37,7 @@ export const Footer = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-gray-200">
-          <p className="text-center text-gray-600">© 2025 CS042labs. All rights reserved.</p>
+          <p className="text-center text-gray-600">© 2025 CS022labs. All rights reserved.</p>
         </div>
       </div>
     </footer>

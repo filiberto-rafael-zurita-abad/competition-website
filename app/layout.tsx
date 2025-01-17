@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CS042labs - Smart Scheduling Made Simple",
-  description: "Schedule meetings effortlessly with CS042labs's smart scheduling platform.",
+  title: "CS022labs - Coded Solutions With AI Integrations",
+  description: "We deliver cutting-edge software solutions powered by AI integrations. We specialize in building intelligent, scalable software systems that drive innovation and efficiency.",
 };
 
 export default function RootLayout({

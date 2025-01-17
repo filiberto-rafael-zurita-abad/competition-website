@@ -46,7 +46,7 @@ export async function initDb() {
   }
 }
 
-export async function query(text: string, params?: any[]) {
+export async function query(text: string, params?: (string | number | boolean | null)[]) {
   return pool.query(text, params)
 }
 
