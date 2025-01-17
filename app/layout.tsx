@@ -15,7 +15,25 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "CS022labs - Coded Solutions With AI Integrations",
-  description: "We deliver cutting-edge software solutions powered by AI integrations. We specialize in building intelligent, scalable software systems that drive innovation and efficiency.",
+  description: "CS022labs delivers cutting-edge coded solutions powered by AI integrations. We specialize in building intelligent, scalable software systems that drive innovation and efficiency.",
+  openGraph: {
+    title: "CS022labs - Coded Solutions With AI Integrations",
+    description: "CS022labs delivers cutting-edge coded solutions powered by AI integrations. We specialize in building intelligent, scalable software systems that drive innovation and efficiency.",
+    images: [
+      {
+        url: '/image-4.png',
+        width: 1200,
+        height: 630,
+        alt: 'CS022labs AI Solutions',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "CS022labs - Coded Solutions With AI Integrations",
+    description: "CS022labs delivers cutting-edge coded solutions powered by AI integrations. We specialize in building intelligent, scalable software systems that drive innovation and efficiency.",
+    images: ['/image-4.png'],
+  },
 };
 
 export default function RootLayout({
