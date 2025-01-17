@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+.vercel
+
+# Environment variables
+.env.local
+
+# Local data files
+data/
