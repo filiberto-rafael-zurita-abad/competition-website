@@ -1,6 +1,6 @@
 import { Project } from '../types';
 import { notFound } from 'next/navigation';
-import ProjectDetails from '../../components/ProjectDetails';
+import ProjectDetails from '../components/ProjectDetails';
 
 async function getProject(slug: string): Promise<Project | null> {
   const { projects } = await import('../data/projectsCards.json');
