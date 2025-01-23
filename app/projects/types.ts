@@ -11,6 +11,6 @@ export interface Link {
   type: string;
   icon: string;
   text: string;
-  tag?: string;
-  isAvailable?: boolean;
+  isAvailableGit?: boolean;
+  isAvailableWeb?: boolean;
 }
