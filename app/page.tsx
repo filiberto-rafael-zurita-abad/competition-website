@@ -1,13 +1,11 @@
 'use client';
 
-import { Navigation } from './containers/Navigation';
 import { Hero } from './containers/Hero';
 import { Competition } from './containers/Competition';
 import { Features } from './containers/Features';
 import { About } from './containers/About';
 import { SubmissionForm } from './containers/SubmissionForm';
 import { FAQ } from './containers/FAQ';
-import { Footer } from './containers/Footer';
 import WhatsappBubble from './components/WhatsappBubble';
 import { useEffect } from 'react';
 
@@ -20,7 +18,6 @@ export default function Home() {
   return (
     <div className="min-h-screen relative">
       <WhatsappBubble />
-      <Navigation />
       <main>
         <Hero />
         <div className="bg-white">
@@ -39,7 +36,6 @@ export default function Home() {
           <FAQ />
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

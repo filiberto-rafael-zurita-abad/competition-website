@@ -20,12 +20,16 @@ export const Navigation = () => {
             {isHomePage ? (
               <>
                 <ScrollLink href="#competitions" className="text-gray-600 hover:text-blue-600 transition-colors">Competitions</ScrollLink>
+                <Link href="/projects" className="text-gray-600 hover:text-blue-600 transition-colors">Projects</Link>
                 <ScrollLink href="#faqs" className="text-gray-600 hover:text-blue-600 transition-colors">FAQs</ScrollLink>
+                
               </>
             ) : (
               <>
                 <Link href="/#competitions" className="text-gray-600 hover:text-blue-600 transition-colors">Competitions</Link>
+                <Link href="/projects" className="text-gray-600 hover:text-blue-600 transition-colors">Projects</Link>
                 <Link href="/#faqs" className="text-gray-600 hover:text-blue-600 transition-colors">FAQs</Link>
+                
               </>
             )}
             <SignedIn>
