@@ -96,7 +96,7 @@ const DataTable = () => {
   );
 
   return (
-    <div className="border border-gray-300 p-4 rounded-lg w-full max-w-2xl h-96 overflow-y-auto">
+    <div className="border border-gray-300 p-4 rounded-lg w-full max-w-2xl h-[80vh] flex flex-col">
       <div className="flex justify-start gap-2 mb-4">
         <button 
           className={`px-4 py-2 rounded ${
