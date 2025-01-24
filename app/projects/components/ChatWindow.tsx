@@ -6,20 +6,26 @@ type Message = {
   role: 'user' | 'assistant';
 };
 
-const ChatWindow = () => {
+interface ChatWindowProps {}
+
+const ChatWindow: React.FC<ChatWindowProps> = () => {
+  // Local state for chat window tabs
+  const [activeChatView, setActiveChatView] = useState<'log' | 'api' | 'actions'>('log');
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
   const messagesContainerRef = useRef<HTMLDivElement>(null);
 
+  // Auto-scroll to bottom when messages change
   useEffect(() => {
-    // Use requestAnimationFrame to wait for DOM update
-    requestAnimationFrame(() => {
-      if (messagesContainerRef.current) {
-        messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
-      }
-    });
+    if (messagesContainerRef.current) {
+      const container = messagesContainerRef.current;
+      console.log('Scrolling to:', container.scrollHeight);
+      container.scrollTo({
+        top: container.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
   }, [messages]);
 
   const handleSendMessage = async () => {
@@ -89,23 +95,53 @@ const ChatWindow = () => {
   };
 
   return (
-<div className="border border-gray-300 p-4 rounded-lg w-full h-[80vh] flex flex-col">
-      <div ref={messagesContainerRef} className="flex-1 overflow-y-auto mb-4 space-y-2">
+    <div className="border border-gray-300 p-4 rounded-lg w-full h-[80vh] flex flex-col">
+      {/* Tabs Container */}
+      <div className="flex justify-start gap-2 mb-4">
+        <button
+          className={`px-4 py-2 rounded ${
+            activeChatView === 'log'
+              ? 'bg-blue-500 text-white'
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`}
+          onClick={() => setActiveChatView('log')}
+        >
+          Log
+        </button>
+        <button
+          className={`px-4 py-2 rounded ${
+            activeChatView === 'api'
+              ? 'bg-blue-500 text-white'
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`}
+          onClick={() => setActiveChatView('api')}
+        >
+          API
+        </button>
+        <button
+          className={`px-4 py-2 rounded ${
+            activeChatView === 'actions'
+              ? 'bg-blue-500 text-white'
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`}
+          onClick={() => setActiveChatView('actions')}
+        >
+          Actions
+        </button>
+      </div>
+      {/* Chat messages container */}
+      <div
+        ref={messagesContainerRef}
+        className="flex-1 overflow-y-auto mb-4 space-y-2"
+        style={{ maxHeight: 'calc(80vh - 120px)' }}
+      >
         {messages.map((msg, idx) => (
           <div key={idx} className={`p-2 rounded ${msg.role === 'user' ? 'bg-blue-100 ml-4' : 'bg-gray-100 mr-4'}`}>
             <strong>{msg.role === 'user' ? 'You' : 'Assistant'}:</strong>
-            <div className="mt-1 space-y-2.5">
-              {msg.content.split('\n').map((paragraph, index) => (
-                <p key={index} className="leading-relaxed">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
+            <p className="mt-1">{msg.content}</p>
           </div>
         ))}
         {isLoading && <div className="text-gray-500">Thinking...</div>}
-        {/* Empty element to ensure space at bottom */}
-        <div className="h-4" />
       </div>
       
       <div className="flex flex-col sm:flex-row gap-2">
@@ -126,7 +162,6 @@ const ChatWindow = () => {
           Send
         </button>
       </div>
-      
     </div>
   );
 };

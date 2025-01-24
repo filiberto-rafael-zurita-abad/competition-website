@@ -4,16 +4,15 @@ import React, { useState } from 'react';
 import { Resizable } from 'react-resizable';
 import 'react-resizable/css/styles.css';
 
-const DataTable = () => {
-  const [activeTable, setActiveTable] = useState('log');
+interface DataTableProps {}
+
+const DataTable: React.FC<DataTableProps> = () => {
+  const [activeTableView, setActiveTableView] = useState<'log' | 'api' | 'actions'>('log');
   const [columnWidths, setColumnWidths] = useState({
     col1: 150,
     col2: 150,
   });
 
-  const handleTableSwitch = (table: string) => {
-    setActiveTable(table);
-  };
 
   const handleResize = (event: any, { size }: { size: { width: number, height: number } }, col: string) => {
     setColumnWidths({ ...columnWidths, [col]: size.width });
@@ -97,39 +96,33 @@ const DataTable = () => {
 
   return (
     <div className="border border-gray-300 p-4 rounded-lg w-full max-w-2xl h-[80vh] flex flex-col">
-      <div className="flex justify-start gap-2 mb-4">
-        <button 
-          className={`px-4 py-2 rounded ${
-            activeTable === 'log' 
-              ? 'bg-blue-500 text-white' 
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-          }`} 
-          onClick={() => handleTableSwitch('log')}
+      <div className="flex gap-2 mb-4">
+        <button
+          onClick={() => setActiveTableView('log')}
+          className={`px-4 py-2 rounded-t-lg ${
+            activeTableView === 'log' ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'
+          }`}
         >
           Log
         </button>
-        <button 
-          className={`px-4 py-2 rounded ${
-            activeTable === 'api' 
-              ? 'bg-blue-500 text-white' 
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-          }`} 
-          onClick={() => handleTableSwitch('api')}
+        <button
+          onClick={() => setActiveTableView('api')}
+          className={`px-4 py-2 rounded-t-lg ${
+            activeTableView === 'api' ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'
+          }`}
         >
           API
         </button>
-        <button 
-          className={`px-4 py-2 rounded ${
-            activeTable === 'actions' 
-              ? 'bg-blue-500 text-white' 
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-          }`} 
-          onClick={() => handleTableSwitch('actions')}
+        <button
+          onClick={() => setActiveTableView('actions')}
+          className={`px-4 py-2 rounded-t-lg ${
+            activeTableView === 'actions' ? 'bg-blue-500 text-white' : 'bg-gray-200 hover:bg-gray-300'
+          }`}
         >
           Actions
         </button>
       </div>
-      {activeTable === 'log' ? logTable : activeTable === 'api' ? apiTable : actionsTable}
+      {activeTableView === 'log' ? logTable : activeTableView === 'api' ? apiTable : actionsTable}
     </div>
   );
 };
