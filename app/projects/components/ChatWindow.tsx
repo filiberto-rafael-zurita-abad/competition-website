@@ -14,10 +14,9 @@ const ChatWindow = () => {
   };
 
   return (
-    <div className="border border-gray-300 p-2 w-full">
+    <div className="border border-gray-300 p-2 w-full h-[400px] flex flex-col">
       <h2>Chat Window</h2>
-      <div className="flex flex-col">
-        <div className="flex-1 overflow-y-auto border border-gray-200 p-1 min-h-[200px]">
+        <div className="flex-1 overflow-y-auto border border-gray-200 p-1">
           {messages.map((message, index) => (
             <div key={index}>{message}</div>
           ))}
@@ -33,7 +32,6 @@ const ChatWindow = () => {
           <button className="p-1 ml-1" onClick={handleSendMessage}>Send</button>
           <button className="p-1 ml-1" onClick={() => setMessages([])}>+</button>
         </div>
-      </div>
     </div>
   );
 };

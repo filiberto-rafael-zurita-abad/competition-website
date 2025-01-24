@@ -1,12 +1,22 @@
 "use client";
 // DataTable.tsx
 import React, { useState } from 'react';
+import { Resizable } from 'react-resizable';
+import 'react-resizable/css/styles.css';
 
 const DataTable = () => {
   const [activeTable, setActiveTable] = useState('log');
+  const [columnWidths, setColumnWidths] = useState({
+    col1: 150,
+    col2: 150,
+  });
 
   const handleTableSwitch = (table: string) => {
     setActiveTable(table);
+  };
+
+  const handleResize = (event: any, { size }: { size: { width: number, height: number } }, col: string) => {
+    setColumnWidths({ ...columnWidths, [col]: size.width });
   };
 
   const logTable = (
@@ -16,8 +26,12 @@ const DataTable = () => {
           <th className="border border-gray-400 p-2" colSpan={2}>Log</th>
         </tr>
         <tr>
-          <th className="border border-gray-400 p-2">Header 1</th>
-          <th className="border border-gray-400 p-2">Header 2</th>
+          <Resizable width={columnWidths.col1} height={0} onResize={(e, data) => handleResize(e, data, 'col1')}>
+            <th className="border border-gray-400 p-2" style={{ width: columnWidths.col1 + 'px' }}>id</th>
+          </Resizable>
+          <Resizable width={columnWidths.col2} height={0} onResize={(e, data) => handleResize(e, data, 'col2')}>
+            <th className="border border-gray-400 p-2" style={{ width: columnWidths.col2 + 'px' }}>Initial Message</th>
+          </Resizable>
         </tr>
       </thead>
       <tbody>
@@ -82,7 +96,7 @@ const DataTable = () => {
   );
 
   return (
-    <div className="border border-gray-300 p-2 w-full">
+    <div className="border border-gray-300 p-2 w-full h-[400px] overflow-y-auto">
       <div className="flex justify-start space-x-2 mb-2 border-b border-gray-300">
         <button className={`p-1 rounded-md  border-b-2 border-transparent hover:border-gray-400 focus:outline-none ${activeTable === 'log' ? 'bg-white border-gray-400 border-b-2' : 'bg-gray-100'}`} onClick={() => handleTableSwitch('log')}>Log</button>
         <button className={`p-1 rounded-md  border-b-2 border-transparent hover:border-gray-400 focus:outline-none ${activeTable === 'api' ? 'bg-white border-gray-400 border-b-2' : 'bg-gray-100'}`} onClick={() => handleTableSwitch('api')}>API</button>
