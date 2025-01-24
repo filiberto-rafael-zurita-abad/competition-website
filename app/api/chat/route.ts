@@ -7,21 +7,14 @@ interface ChatMessage {
 
 export async function POST(req: Request) {
   try {
-    const { messages, model } = await req.json();
+    const { messages } = await req.json();
     
-    // Configure API settings based on selected model
-    const apiUrl = model === 'reasoner' 
-      ? 'https://api.deepseek.com/v1/chat/completions' 
-      : 'https://api.deepseek.com/v1/chat/completions';
-    const apiKey = model === 'reasoner'
-      ? process.env.DEEPSEEK_REASONER_KEY
-      : process.env.DEEPSEEK_API_KEY;
-
-    const response = await fetch(apiUrl, {
+    // Reasoner model configuration
+    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
+        'Authorization': `Bearer ${process.env.DEEPSEEK_REASONER_KEY}`
       },
       body: JSON.stringify({
         model: 'deepseek-chat',
