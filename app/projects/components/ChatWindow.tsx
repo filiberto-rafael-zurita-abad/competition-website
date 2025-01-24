@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 type Message = {
   content: string;
@@ -10,6 +10,17 @@ const ChatWindow = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Use requestAnimationFrame to wait for DOM update
+    requestAnimationFrame(() => {
+      if (messagesContainerRef.current) {
+        messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+      }
+    });
+  }, [messages]);
 
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
@@ -79,14 +90,22 @@ const ChatWindow = () => {
 
   return (
 <div className="border border-gray-300 p-4 rounded-lg w-full h-[80vh] flex flex-col">
-      <div className="flex-1 overflow-y-auto mb-4 space-y-2">
+      <div ref={messagesContainerRef} className="flex-1 overflow-y-auto mb-4 space-y-2">
         {messages.map((msg, idx) => (
           <div key={idx} className={`p-2 rounded ${msg.role === 'user' ? 'bg-blue-100 ml-4' : 'bg-gray-100 mr-4'}`}>
             <strong>{msg.role === 'user' ? 'You' : 'Assistant'}:</strong>
-            <p className="mt-1">{msg.content}</p>
+            <div className="mt-1 space-y-2.5">
+              {msg.content.split('\n').map((paragraph, index) => (
+                <p key={index} className="leading-relaxed">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
           </div>
         ))}
         {isLoading && <div className="text-gray-500">Thinking...</div>}
+        {/* Empty element to ensure space at bottom */}
+        <div className="h-4" />
       </div>
       
       <div className="flex flex-col sm:flex-row gap-2">
