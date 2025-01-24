@@ -23,25 +23,25 @@ const DataTable = () => {
     <table className="w-full border-collapse">
       <thead>
         <tr>
-          <th className="border border-gray-400 p-2" colSpan={2}>Log</th>
+          <th className="bg-gray-100 p-2 rounded-t" colSpan={2}>Log</th>
         </tr>
         <tr>
           <Resizable width={columnWidths.col1} height={0} onResize={(e, data) => handleResize(e, data, 'col1')}>
-            <th className="border border-gray-400 p-2" style={{ width: columnWidths.col1 + 'px' }}>id</th>
+            <th className="bg-gray-50 p-2" style={{ width: columnWidths.col1 + 'px' }}>id</th>
           </Resizable>
           <Resizable width={columnWidths.col2} height={0} onResize={(e, data) => handleResize(e, data, 'col2')}>
-            <th className="border border-gray-400 p-2" style={{ width: columnWidths.col2 + 'px' }}>Initial Message</th>
+            <th className="bg-gray-50 p-2" style={{ width: columnWidths.col2 + 'px' }}>Initial Message</th>
           </Resizable>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td className="border border-gray-400 p-2">Log Data 1</td>
-          <td className="border border-gray-400 p-2">Log Data 2</td>
+          <td className="p-2 bg-white">Log Data 1</td>
+          <td className="p-2 bg-white">Log Data 2</td>
         </tr>
         <tr>
-          <td className="border border-gray-400 p-2">Log Data 3</td>
-          <td className="border border-gray-400 p-2">Log Data 4</td>
+          <td className="p-2 bg-white">Log Data 3</td>
+          <td className="p-2 bg-white">Log Data 4</td>
         </tr>
       </tbody>
     </table>
@@ -51,21 +51,21 @@ const DataTable = () => {
     <table className="w-full border-collapse">
       <thead>
         <tr>
-          <th className="border border-gray-400 p-2" colSpan={2}>API</th>
+          <th className="bg-gray-100 p-2 rounded-t" colSpan={2}>API</th>
         </tr>
         <tr>
-          <th className="border border-gray-400 p-2">Header A</th>
-          <th className="border border-gray-400 p-2">Header B</th>
+          <th className="bg-gray-50 p-2">Header A</th>
+          <th className="bg-gray-50 p-2">Header B</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td className="border border-gray-400 p-2">API Data A</td>
-          <td className="border border-gray-400 p-2">API Data B</td>
+          <td className="p-2 bg-white">API Data A</td>
+          <td className="p-2 bg-white">API Data B</td>
         </tr>
         <tr>
-          <td className="border border-gray-400 p-2">API Data C</td>
-          <td className="border border-gray-400 p-2">API Data D</td>
+          <td className="p-2 bg-white">API Data C</td>
+          <td className="p-2 bg-white">API Data D</td>
         </tr>
       </tbody>
     </table>
@@ -75,32 +75,59 @@ const DataTable = () => {
     <table className="w-full border-collapse">
       <thead>
         <tr>
-          <th className="border border-gray-400 p-2" colSpan={2}>Actions</th>
+          <th className="bg-gray-100 p-2 rounded-t" colSpan={2}>Actions</th>
         </tr>
         <tr>
-          <th className="border border-gray-400 p-2">Action 1</th>
-          <th className="border border-gray-400 p-2">Action 2</th>
+          <th className="bg-gray-50 p-2">Action 1</th>
+          <th className="bg-gray-50 p-2">Action 2</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td className="border border-gray-400 p-2">Action Data 1</td>
-          <td className="border border-gray-400 p-2">Action Data 2</td>
+          <td className="p-2 bg-white">Action Data 1</td>
+          <td className="p-2 bg-white">Action Data 2</td>
         </tr>
         <tr>
-          <td className="border border-gray-400 p-2">Action Data 3</td>
-          <td className="border border-gray-400 p-2">Action Data 4</td>
+          <td className="p-2 bg-white">Action Data 3</td>
+          <td className="p-2 bg-white">Action Data 4</td>
         </tr>
       </tbody>
     </table>
   );
 
   return (
-    <div className="border border-gray-300 p-2 w-full h-[400px] overflow-y-auto">
-      <div className="flex justify-start space-x-2 mb-2 border-b border-gray-300">
-        <button className={`p-1 rounded-md  border-b-2 border-transparent hover:border-gray-400 focus:outline-none ${activeTable === 'log' ? 'bg-white border-gray-400 border-b-2' : 'bg-gray-100'}`} onClick={() => handleTableSwitch('log')}>Log</button>
-        <button className={`p-1 rounded-md  border-b-2 border-transparent hover:border-gray-400 focus:outline-none ${activeTable === 'api' ? 'bg-white border-gray-400 border-b-2' : 'bg-gray-100'}`} onClick={() => handleTableSwitch('api')}>API</button>
-        <button className={`p-1 rounded-md  border-b-2 border-transparent hover:border-gray-400 focus:outline-none ${activeTable === 'actions' ? 'bg-white border-gray-400 border-b-2' : 'bg-gray-100'}`} onClick={() => handleTableSwitch('actions')}>Actions</button>
+    <div className="border border-gray-300 p-4 rounded-lg w-full max-w-2xl h-96 overflow-y-auto">
+      <div className="flex justify-start gap-2 mb-4">
+        <button 
+          className={`px-4 py-2 rounded ${
+            activeTable === 'log' 
+              ? 'bg-blue-500 text-white' 
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`} 
+          onClick={() => handleTableSwitch('log')}
+        >
+          Log
+        </button>
+        <button 
+          className={`px-4 py-2 rounded ${
+            activeTable === 'api' 
+              ? 'bg-blue-500 text-white' 
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`} 
+          onClick={() => handleTableSwitch('api')}
+        >
+          API
+        </button>
+        <button 
+          className={`px-4 py-2 rounded ${
+            activeTable === 'actions' 
+              ? 'bg-blue-500 text-white' 
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`} 
+          onClick={() => handleTableSwitch('actions')}
+        >
+          Actions
+        </button>
       </div>
       {activeTable === 'log' ? logTable : activeTable === 'api' ? apiTable : actionsTable}
     </div>
