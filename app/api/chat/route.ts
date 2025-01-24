@@ -7,17 +7,31 @@ interface ChatMessage {
 
 export async function POST(req: Request) {
   try {
-    const { messages } = await req.json();
+    const { messages, model } = await req.json();
     
-    const response = await fetch('https://api.deepseek.com/v1/chat/completions', {
+    // Configure API settings based on selected model
+    const apiUrl = model === 'reasoner' 
+      ? 'https://api.deepseek.com/v1/chat/completions' 
+      : 'https://api.deepseek.com/v1/chat/completions';
+    const apiKey = model === 'reasoner'
+      ? process.env.DEEPSEEK_REASONER_KEY
+      : process.env.DEEPSEEK_API_KEY;
+
+    const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.DEEPSEEK_API_KEY}`
+        'Authorization': `Bearer ${apiKey}`
       },
       body: JSON.stringify({
-        model: "deepseek-chat",
-        messages: messages as ChatMessage[],
+        model: 'deepseek-chat',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are Deepseek Reasoner, an expert AI assistant specialized in logical reasoning and problem solving. Provide detailed, step-by-step explanations.'
+          },
+          ...messages as ChatMessage[]
+        ],
         temperature: 0.7,
         stream: true
       })

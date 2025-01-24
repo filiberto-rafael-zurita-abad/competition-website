@@ -10,6 +10,7 @@ const ChatWindow = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [model, setModel] = useState<'deepseek'|'resoner'>('deepseek');
 
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return;
@@ -23,7 +24,10 @@ const ChatWindow = () => {
       const response = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: [...messages, userMessage] })
+        body: JSON.stringify({ 
+          messages: [...messages, userMessage],
+          model
+        })
       });
 
       if (!response.ok || !response.body) throw new Error('API request failed');
@@ -103,6 +107,29 @@ const ChatWindow = () => {
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50"
         >
           Send
+        </button>
+      </div>
+      
+      <div className="flex justify-center gap-2 mt-4">
+        <button
+          onClick={() => setModel('deepseek')}
+          className={`px-4 py-2 rounded ${
+            model === 'deepseek' 
+              ? 'bg-blue-500 text-white' 
+              : 'bg-gray-200 text-gray-700'
+          }`}
+        >
+          Deepseek
+        </button>
+        <button
+          onClick={() => setModel('resoner')}
+          className={`px-4 py-2 rounded ${
+            model === 'resoner'
+              ? 'bg-blue-500 text-white'
+              : 'bg-gray-200 text-gray-700'
+          }`}
+        >
+          Resoner
         </button>
       </div>
     </div>
