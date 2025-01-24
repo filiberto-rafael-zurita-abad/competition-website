@@ -3,20 +3,27 @@ import { notFound } from 'next/navigation';
 import ProjectDetails from '../components/ProjectDetails';
 import AINewsReporter from '../components/AINewsReporter';
 
-export default async function ProjectPage({ params }: { params: { slug: string } }) {
-  // Process params synchronously first (Next.js requirement)
-  const slug = params.slug;
-  
-  // Load project data asynchronously with proper typing
-  const { projects } = await import('../data/projectsCards.json') as { projects: Project[] };
-  
-  // Find project with type-safe comparison
-  const project = projects.find((p: Project) => 
-    p.title.toLowerCase().replace(/ /g, '-') === slug.toLowerCase()
-  ) || null;
+async function getProject(slug: string): Promise<Project | null> {
+  const { projects } = await import('../data/projectsCards.json');
+  return projects.find((p) => p.title.toLowerCase().replace(/ /g, '-') === slug) || null;
+}
+
+export async function generateStaticParams() {
+  const { projects } = await import('../data/projectsCards.json');
+  return projects.map((project) => ({
+    slug: project.title.toLowerCase().replace(/ /g, '-'),
+  }));
+}
+
+export default async function ProjectPage({ 
+  params: { slug } 
+}: { 
+  params: { slug: string } 
+}) {
+  const project = await getProject(slug);
   
   if (!project) {
-    return notFound();
+    notFound();
   }
 
   return (
