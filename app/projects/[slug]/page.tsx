@@ -15,13 +15,14 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function ProjectPage({ 
-  params: { slug } 
-}: { 
-  params: { slug: string } 
-}) {
-  const project = await getProject(slug);
+export default async function ProjectPage(props: { params: { slug: string } }) {
+  // Create async context first
+  await Promise.resolve();
   
+  // Now safely destructure after await
+  const { params } = props;
+  const project = await getProject(params.slug);
+
   if (!project) {
     notFound();
   }
