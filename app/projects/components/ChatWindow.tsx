@@ -80,7 +80,7 @@ const ChatWindow = () => {
   };
 
   return (
-    <div className="border border-gray-300 p-4 rounded-lg w-full max-w-2xl h-96 flex flex-col">
+<div className="border border-gray-300 p-4 rounded-lg w-full max-w-2xl h-[80vh] flex flex-col">
       <div className="flex-1 overflow-y-auto mb-4 space-y-2">
         {messages.map((msg, idx) => (
           <div key={idx} className={`p-2 rounded ${msg.role === 'user' ? 'bg-blue-100 ml-4' : 'bg-gray-100 mr-4'}`}>
@@ -110,7 +110,11 @@ const ChatWindow = () => {
         </button>
       </div>
       
-      <label className="inline-flex items-center cursor-pointer mt-4">
+      <label className="inline-flex items-center cursor-pointer mt-4 gap-2">
+        <button className="flex items-center gap-1 px-2 py-1 text-sm border rounded hover:bg-gray-50">
+          <span>+</span>
+          <span>New</span>
+        </button>
         <input 
           type="checkbox" 
           checked={model === 'resoner'}
