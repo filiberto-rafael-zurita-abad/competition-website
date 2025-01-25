@@ -7,6 +7,7 @@ type Message = {
 };
 
 const ChatWindow = () => {
+  const [activeTab, setActiveTab] = useState('chat');
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -89,7 +90,39 @@ const ChatWindow = () => {
   };
 
   return (
-<div className="border border-gray-300 p-4 rounded-lg w-full h-[80vh] flex flex-col">
+    <div className="border border-gray-300 p-4 rounded-lg w-full h-[80vh] flex flex-col">
+      <div className="flex justify-start gap-2 mb-4">
+        <button 
+          className={`px-4 py-2 rounded ${
+            activeTab === 'chat' 
+              ? 'bg-blue-500 text-white' 
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`} 
+          onClick={() => setActiveTab('chat')}
+        >
+          Chat
+        </button>
+        <button 
+          className={`px-4 py-2 rounded ${
+            activeTab === 'history' 
+              ? 'bg-blue-500 text-white' 
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`} 
+          onClick={() => setActiveTab('history')}
+        >
+          History
+        </button>
+        <button 
+          className={`px-4 py-2 rounded ${
+            activeTab === 'settings' 
+              ? 'bg-blue-500 text-white' 
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`} 
+          onClick={() => setActiveTab('settings')}
+        >
+          Settings
+        </button>
+      </div>
       <div ref={messagesContainerRef} className="flex-1 overflow-y-auto mb-4 space-y-2">
         {messages.map((msg, idx) => (
           <div key={idx} className={`p-2 rounded ${msg.role === 'user' ? 'bg-blue-100 ml-4' : 'bg-gray-100 mr-4'}`}>
